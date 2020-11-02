@@ -30,5 +30,7 @@ workflows:
       - docker/publish:
           image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: 'latest'
-      - heroku
+      - heroku:
+          requires:
+            - docker/publish
 

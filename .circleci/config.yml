@@ -21,7 +21,7 @@ jobs:
             docker push registry.heroku.com/$HEROKU_APP_NAME/web
 
       - run:
-        name: Release
+          name: Release
           command: | 
             heroku container:login
             heroku container:release web

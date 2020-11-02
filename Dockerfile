@@ -16,6 +16,6 @@ RUN jekyll build
 
 FROM nginx:alpine
 
-ENV NGINX_HTTP_PORT_NUMBER=8000
+ENV NGINX_PORT=8000
 
 COPY --from=build-stage /usr/src/app/_site/ /usr/share/nginx/html

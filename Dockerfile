@@ -16,6 +16,11 @@ RUN jekyll build
 
 FROM nginx:alpine
 
-ENV NGINX_PORT=8000
+#ENV NGINX_PORT=8000
 
 COPY --from=build-stage /usr/src/app/_site/ /usr/share/nginx/html
+COPY default.conf.template /etc/nginx/conf.d/default.conf.template
+
+
+CMD /bin/bash -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf" && nginx -g 'daemon off;'
+

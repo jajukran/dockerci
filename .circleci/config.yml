@@ -7,9 +7,9 @@ jobs:
   heroku:
     machine: 
       image: ubuntu-2004:202010-01
+    working_directory: ~/dockerci
     steps:
       - checkout
-      - working_directory: ~/dockerci
       - run:
           name: Pull and tag image
           command: | 

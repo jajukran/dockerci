@@ -11,7 +11,5 @@ workflows:
   heroku_deploy:
     jobs:
       - heroku/push-docker-image:
-          requires: 
-            - docker/publish
             
 

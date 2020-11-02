@@ -2,8 +2,9 @@ version: 2.1
 orbs:
   docker: circleci/docker@1.0.0
 workflows:
-  - build
-  - deploy
+  jobs:
+    - build
+    - deploy
 
 jobs:
   build:

@@ -22,9 +22,9 @@ jobs:
 
       - run:
         name: Release
-        command: | 
-          heroku container:login
-          heroku container:release web
+          command: | 
+            heroku container:login
+            heroku container:release web
     
 
 

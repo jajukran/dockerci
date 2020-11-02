@@ -1,11 +1,34 @@
 version: 2.1
 orbs:
   docker: circleci/docker@1.0.0
+
+
+jobs:
+  heroku:
+    machine: 
+      image: ubuntu-2004:202010-01
+    steps:
+      - checkout
+      - working_directory: ~/dockerci
+      - run:
+          name: Pull and tag image
+          command: | 
+            docker pull $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
+            docker tag $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME registry.heroku.com/$HEROKU_APP_NAME/web
+      - run:
+          name: Push to Heroku
+          command: | 
+            docker push registry.heroku.com/$HEROKU_APP_NAME/web
+            heroku container:login
+            heroku container:release web
+
+
+
 workflows:
   deploy:
     jobs:
       - docker/publish:
           image: $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
           tag: 'latest'
-            
+      - heroku
 

@@ -16,15 +16,16 @@ jobs:
             docker pull $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME
             docker tag $DOCKER_LOGIN/$CIRCLE_PROJECT_REPONAME registry.heroku.com/$HEROKU_APP_NAME/web
       - run:
-          name: Push to Heroku
+          name: Login
           command: | 
             docker login -u $DOCKER_LOGIN -p $DOCKER_PASSWORD
-            docker push registry.heroku.com/$HEROKU_APP_NAME/web
+            heroku container:login
+            
 
       - run:
           name: Release
           command: | 
-            heroku container:login
+            docker push registry.heroku.com/$HEROKU_APP_NAME/web
             heroku container:release web
     
 
